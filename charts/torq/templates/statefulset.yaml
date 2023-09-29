@@ -34,7 +34,7 @@ spec:
           ports:
             - name: http
               containerPort: {{ .Values.httpPort }}
-            - name: fedi-grpc
+            - name: fedi
               containerPort: {{ .Values.fediGrpcPort }}
           args:
             - --db.name={{ .Values.dbName }}

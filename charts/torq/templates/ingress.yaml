@@ -1,4 +1,4 @@
-{{- if .Values.gRPCEntryPoint }}
+{{- if .Values.fediGrpcEntryPoint }}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRouteTCP
@@ -11,7 +11,7 @@ spec:
     - match: HostSNI(`*`)
       services:
         - name: {{ include "torq.fullname" . }}
-          port: fedi-grpc
+          port: fedi
   tls:
     passthrough: false
 {{- end}}

@@ -36,14 +36,9 @@ releases:
       - clientImage:
           repository: lnd-client
           pullPolicy: IfNotPresent
-  - name: ubuntu
-    namespace: sl
-    chart: ../../charts/ubuntu
   - name: timescaledb
     namespace: sl
     chart: ../../charts/timescaledb
   - name: torq
     namespace: sl
     chart: ../../charts/torq
-    values:
-      - httpEntryPoint: endpoint1

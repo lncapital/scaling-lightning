@@ -7,8 +7,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - name: fedi-grpc
-      targetPort: fedi-grpc
+    - name: fedi
+      targetPort: fedi
       port: {{ .Values.fediGrpcPort }}
     - name: http
       targetPort: http

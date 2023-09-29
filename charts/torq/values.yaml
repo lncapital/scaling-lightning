@@ -24,8 +24,8 @@ bitcoindRpcPass: pass
 
 mempoolUrl: "https://mempool.space"
 
-fediGrpcPort: 9000
-httpPort: 8000
+fediGrpcPort: 9009
+httpPort: 9000
 
 # set to one of the endpoints defined in traefik's values file e.g. (endpoint1, endpoint2, endpoint3, endpoint4)
 # to expose direct fedi gRPC access to the node
