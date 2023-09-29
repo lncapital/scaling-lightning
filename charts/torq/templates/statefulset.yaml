@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "torq.fullname" . }}
+  labels:
+    {{- include "torq.labels" . | nindent 4 }}
+spec:
+  replicas: {{ default 1 .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "torq.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "torq.selectorLabels" . | nindent 8 }}
+    spec:
+      securityContext:
+        runAsUser: 0
+      volumes:
+        - name: data
+          {{- if .Values.volume.size }}
+          persistentVolumeClaim:
+            claimName: {{ include "torq.fullname" . }}-pvc
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: data
+              mountPath: /root/.torq
+          ports:
+            - name: http
+              containerPort: {{ .Values.httpPort }}
+            - name: fedi-grpc
+              containerPort: {{ .Values.fediGrpcPort }}
+          args:
+            - --db.name={{ .Values.dbName }}
+            - --db.user={{ .Values.dbUser }}
+            - --db.password={{ .Values.dbPassword }}
+            - --db.port={{ .Values.dbPort }}
+            - --db.host={{ .Values.dbHost }}
+            - --torq.password={{ .Values.password }}
+            - --torq.network-interface={{ .Values.networkInterface }}
+            - --torq.port={{ .Values.httpPort }}
+            - --torq.debuglevel={{ .Values.debugLevel }}
+            - --torq.auto-login={{ .Values.autoLogin }}
+            - --bitcoind.network={{ .Values.bitcoindNetwork }}
+            - --bitcoind.url={{ .Values.bitcoindRpcUrl }}
+            - --bitcoind.user={{ .Values.bitcoindRpcUser }}
+            - --bitcoind.password={{ .Values.bitcoindRpcPass }}
+            - --customize.mempool.url={{ .Values.mempoolUrl }}
+            - start
+

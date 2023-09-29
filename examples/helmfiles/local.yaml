@@ -8,33 +8,42 @@ releases:
           repository: bitcoind-client
           pullPolicy: IfNotPresent
       - autoGen: true
-  - name: cln1
-    namespace: sl
-    chart: ../../charts/cln
-    values:
-      - gRPCEntryPoint: endpoint1
-      - clientImage:
-          repository: cln-client
-          pullPolicy: IfNotPresent
-  - name: cln2
+  - name: alice
     namespace: sl
     chart: ../../charts/cln
     values:
       - clientImage:
           repository: cln-client
           pullPolicy: IfNotPresent
-  - name: lnd1
+  - name: bob
+    namespace: sl
+    chart: ../../charts/cln
+    values:
+      - clientImage:
+          repository: cln-client
+          pullPolicy: IfNotPresent
+  - name: carol
     namespace: sl
     chart: ../../charts/lnd
     values:
-      - gRPCEntryPoint: endpoint1
       - clientImage:
           repository: lnd-client
           pullPolicy: IfNotPresent
-  - name: lnd2
+  - name: dave
     namespace: sl
     chart: ../../charts/lnd
     values:
       - clientImage:
           repository: lnd-client
           pullPolicy: IfNotPresent
+  - name: ubuntu
+    namespace: sl
+    chart: ../../charts/ubuntu
+  - name: timescaledb
+    namespace: sl
+    chart: ../../charts/timescaledb
+  - name: torq
+    namespace: sl
+    chart: ../../charts/torq
+    values:
+      - httpEntryPoint: endpoint1

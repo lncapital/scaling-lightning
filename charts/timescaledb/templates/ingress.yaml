@@ -1,0 +1,17 @@
+{{- if .Values.tcpEntryPoint }}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: {{ include "timescaledb.fullname" . }}-direct-tcp
+spec:
+  entryPoints:
+    - {{ .Values.tcpEntryPoint }}
+  routes:
+    - match: HostSNI(`*`)
+      services:
+        - name: {{ include "timescaledb.fullname" . }}
+          port: port
+  tls:
+    passthrough: false
+  {{- end}}

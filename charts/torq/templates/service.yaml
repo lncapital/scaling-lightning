@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "torq.fullname" . }}
+  labels:
+    {{- include "torq.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: fedi-grpc
+      targetPort: fedi-grpc
+      port: {{ .Values.fediGrpcPort }}
+    - name: http
+      targetPort: http
+      port: {{ .Values.httpPort }}
+  selector:
+    {{- include "torq.selectorLabels" . | nindent 4 }}

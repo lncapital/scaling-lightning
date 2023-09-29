@@ -16,13 +16,14 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/timeout"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
+
 	clnGRPC "github.com/scaling-lightning/scaling-lightning/clients/cln/grpc"
 	stdcommonclient "github.com/scaling-lightning/scaling-lightning/pkg/standardclient/common"
 	stdlightningclient "github.com/scaling-lightning/scaling-lightning/pkg/standardclient/lightning"
 	"github.com/scaling-lightning/scaling-lightning/pkg/tools"
 	"github.com/scaling-lightning/scaling-lightning/pkg/tools/grpc_helpers"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 )
 
 type appConfig struct {
@@ -179,9 +180,9 @@ func validateFlags(appConfig *appConfig) error {
 }
 
 func grpcConnect(host string,
-	certificate []byte,
-	key []byte,
-	caCertificate []byte) (*grpc.ClientConn, error) {
+		certificate []byte,
+		key []byte,
+		caCertificate []byte) (*grpc.ClientConn, error) {
 
 	clientCrt, err := tls.X509KeyPair(certificate, key)
 	if err != nil {

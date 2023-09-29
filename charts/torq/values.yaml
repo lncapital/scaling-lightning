@@ -1,0 +1,40 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: lncapital/torq
+  tag: v1.1.3
+  pullPolicy: IfNotPresent
+
+dbName: torq
+dbUser: postgres
+dbPassword: runningtorq
+dbPort: 5432
+dbHost: timescaledb
+
+password: welcome
+networkInterface: 0.0.0.0
+debugLevel: info
+autoLogin: false
+
+bitcoindNetwork: RegTest
+bitcoindRpcUrl: bitcoind
+bitcoindRpcUser: foo
+bitcoindRpcPass: pass
+
+mempoolUrl: "https://mempool.space"
+
+fediGrpcPort: 9000
+httpPort: 8000
+
+# set to one of the endpoints defined in traefik's values file e.g. (endpoint1, endpoint2, endpoint3, endpoint4)
+# to expose direct fedi gRPC access to the node
+fediGrpcEntryPoint: null
+httpEntryPoint: null
+
+# This gives persistence to nodes. If no storage is set then the node will be ephemeral between upgrades.
+volume:
+  # example 1Gi for 1 gibibyte (1024^3 bytes). Blank string for no storage.
+  size: ""
+  # example do-block-storage for DigitalOcean's standard block storage. Blank for default storage class.
+  storageClass: ""

@@ -1,0 +1,35 @@
+{{- if .Values.gRPCEntryPoint }}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: {{ include "torq.fullname" . }}-direct-fedi-grpc
+spec:
+  entryPoints:
+    - {{ .Values.fediGrpcEntryPoint }}
+  routes:
+    - match: HostSNI(`*`)
+      services:
+        - name: {{ include "torq.fullname" . }}
+          port: fedi-grpc
+  tls:
+    passthrough: false
+{{- end}}
+
+{{- if .Values.httpEntryPoint }}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: {{ include "torq.fullname" . }}-direct-http
+spec:
+  entryPoints:
+    - {{ .Values.httpEntryPoint }}
+  routes:
+    - match: HostSNI(`*`)
+      services:
+        - name: {{ include "torq.fullname" . }}
+          port: http
+  tls:
+    passthrough: false
+  {{- end}}

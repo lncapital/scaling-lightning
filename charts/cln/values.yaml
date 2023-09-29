@@ -3,7 +3,7 @@ fullnameOverride: ""
 
 image:
   repository: elementsproject/lightningd
-  tag: v23.05.1
+  tag: v23.08
   pullPolicy: IfNotPresent
 
 clientImage:
